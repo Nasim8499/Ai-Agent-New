@@ -1,66 +1,112 @@
 import Link from "next/link";
-import { FileText, Globe, Plus, Search } from "lucide-react";
+import { ArrowRight, Bot, Globe, ShieldCheck, Sparkles } from "lucide-react";
 
-const applications = [
-  { id: "visa-demo", country: "United Arab Emirates", type: "Tourist visa", progress: 72 },
-  { id: "app-2", country: "Canada", type: "Study permit", progress: 45 },
-  { id: "app-3", country: "Germany", type: "Work visa", progress: 18 }
+const features = [
+  { title: "Visa workflow AI", description: "Fills, validates, and stages each government portal step." },
+  { title: "Live browser view", description: "Secure real-time browser preview with evidence capture." },
+  { title: "Human approvals", description: "Confirmation gates before payment or final submission." }
 ];
 
-export default function ApplicationsPage() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white p-6 lg:p-10">
-      <div className="mx-auto max-w-6xl">
-        <header className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.12em] text-slate-500">Dashboard</p>
-            <h1 className="mt-2 text-3xl font-semibold text-navy-900">Visa applications</h1>
+    <main className="min-h-screen bg-white text-navy-900">
+      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
+        <header className="mb-10 flex items-center justify-between rounded-2xl border border-navy-100 bg-white px-5 py-3 shadow-card">
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl bg-navy-700 p-2 text-white">
+              <Globe className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-lg font-semibold">GrokBot</p>
+              <p className="text-xs text-slate-500">AI Visa Agent</p>
+            </div>
           </div>
 
-          <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy-700 px-4 py-3 text-sm font-medium text-white transition hover:bg-navy-900">
-            <Plus className="h-4 w-4" />
-            New application
-          </button>
+          <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
+            <Link href="/applications" className="hover:text-navy-700">Dashboard</Link>
+            <Link href="/applications/visa-demo/workspace" className="hover:text-navy-700">Live workspace</Link>
+            <Link href="/applications/visa-demo" className="hover:text-navy-700">Applications</Link>
+          </nav>
+
+          <Link href="/applications" className="rounded-full bg-navy-700 px-4 py-2 text-sm font-medium text-white hover:bg-navy-900">
+            Open app
+          </Link>
         </header>
 
-        <div className="mb-8 flex items-center gap-3 rounded-2xl border border-navy-100 bg-navy-50 px-4 py-3 text-sm text-slate-600">
-          <Search className="h-4 w-4 text-navy-700" />
-          Search applications, status, or portal
-        </div>
+        <section className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-navy-100 bg-navy-50 px-3 py-1.5 text-xs font-medium text-navy-700">
+              <Sparkles className="h-3.5 w-3.5" />
+              White-theme AI browser automation
+            </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {applications.map((item) => (
-            <Link key={item.id} href={`/applications/${item.id}`} className="rounded-2xl border border-navy-100 bg-white p-5 shadow-card transition hover:-translate-y-0.5">
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-lg bg-navy-50 p-2 text-navy-700">
-                    <Globe className="h-4 w-4" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-500">{item.country}</span>
+            <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-navy-900 md:text-6xl">
+              Smart visa automation with a live AI browser agent.
+            </h1>
+
+            <p className="mt-6 max-w-xl text-lg text-slate-600">
+              A modern white UI for passport validation, portal automation, OCR review, real-time event logs, and approval-first visa workflows.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link href="/applications" className="inline-flex items-center gap-2 rounded-xl bg-navy-700 px-5 py-3 text-sm font-medium text-white transition hover:bg-navy-900">
+                Start workflow
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/applications/visa-demo/workspace" className="inline-flex items-center gap-2 rounded-xl border border-navy-100 bg-white px-5 py-3 text-sm font-medium text-navy-700 transition hover:bg-navy-50">
+                View live preview
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-navy-100 bg-navy-50 p-6 shadow-card">
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="rounded-xl bg-white p-2 text-navy-700 shadow-sm">
+                  <Bot className="h-5 w-5" />
                 </div>
-                <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
-                  active
-                </span>
+                <div>
+                  <div className="font-medium text-navy-900">Agent status</div>
+                  <div className="text-xs text-slate-500">Live runner active</div>
+                </div>
               </div>
+              <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">Online</span>
+            </div>
 
-              <div className="text-xl font-semibold text-navy-900">{item.type}</div>
+            <div className="space-y-4">
+              {[
+                { label: "Portal intake", status: "Completed" },
+                { label: "Passport OCR", status: "Running" },
+                { label: "Human approval", status: "Queued" },
+                { label: "Submission", status: "Pending" }
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm">
+                  <span className="text-slate-600">{item.label}</span>
+                  <span className={item.status === "Completed" ? "text-emerald-600" : item.status === "Running" ? "text-amber-500" : "text-slate-500"}>
+                    {item.status}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-              <div className="mt-5 flex items-center justify-between text-sm text-slate-500">
-                <span>Progress</span>
-                <span>{item.progress}%</span>
+            <div className="mt-6 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+              <ShieldCheck className="h-4 w-4" />
+              Secure portal flow and human confirmation gates enforced.
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-16 grid gap-5 md:grid-cols-3">
+          {features.map((feature) => (
+            <div key={feature.title} className="rounded-2xl border border-navy-100 bg-white p-5 shadow-card">
+              <div className="mb-3 inline-flex rounded-xl bg-navy-50 p-2 text-navy-700">
+                <Bot className="h-4 w-4" />
               </div>
-
-              <div className="mt-2 h-2.5 rounded-full bg-navy-100">
-                <div className="h-full rounded-full bg-navy-700" style={{ width: `${item.progress}%` }} />
-              </div>
-
-              <div className="mt-5 flex items-center gap-2 text-sm text-navy-700">
-                <FileText className="h-4 w-4" />
-                Open application
-              </div>
-            </Link>
+              <h2 className="text-lg font-semibold text-navy-900">{feature.title}</h2>
+              <p className="mt-2 text-sm text-slate-600">{feature.description}</p>
+            </div>
           ))}
-        </div>
+        </section>
       </div>
     </main>
   );
