@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY}
+      AGENT_WORKER_URL: http://worker:4000
+    ports:
+      - "3000:3000"
+
+  worker:
+    build: ./worker
+    environment:
+      SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY}
+      REDIS_URL: redis://redis:6379
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL}
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+
+  n8n:
+    image: n8nio/n8n
+    environment:
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      WEBHOOK_URL: ${N8N_PUBLIC_WEBHOOK_URL}
+    ports:
+      - "5678:5678"
